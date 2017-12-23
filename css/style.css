@@ -1,0 +1,127 @@
+.left,.right{
+	width:49%;
+	display:inline-block;
+	vertical-align:top;
+}
+
+.hour{
+	width: 22%;
+	display:inline-block;
+	vertical-align: top;
+	margin: 0px 7px;
+	padding: 0px 4px;
+}	
+
+.day{
+	width: 18%;
+	display:inline-block;
+	vertical-align: top;
+	margin: 0px 7px;
+	padding: 0px 4px;
+}
+
+h3{
+	width: 100%;
+	text-align:center;
+	border-bottom: 1px solid grey;
+}
+
+.currently, .hourly, .daily{
+	text-align:center;
+}
+
+.daily{
+	margin-bottom: 20px;
+}
+
+.fa-refresh{
+	cursor:pointer;
+	top: 50px;
+	right:10px;
+	position: absolute;
+}
+
+.fa:hover{
+	color:red;
+}
+
+.location_container{
+	position: relative;
+}
+
+.page-header{
+	text-align:center;
+}
+
+body, html{
+	background: #d1d1d1;
+}
+
+.container{
+	height:100%;
+	background: white;
+}
+
+p{
+	margin: 0px;
+}
+
+canvas{
+	display: inline-block;
+}
+
+span.temp{
+	display: block;
+	position: relative;
+}
+
+p.temp{
+	display: inline-block;
+	vertical-align: top;
+	font-size: 22px;
+	font-weight: bold;
+	text-align:right;
+	margin-left: 6px;
+}
+
+.italic{
+	font-style: italic;
+}
+
+.day p.item:first-child, .day p.item:first-child {
+	font-size: 20px;
+}
+
+@media (min-width: 778px){
+	.container{
+		margin: 20px auto;
+	}
+}
+
+@media (max-width: 992px){
+	.day{
+		width: 31%;
+	}
+	
+	.day p.item:first-child {
+		border-top: 1px dotted grey;
+		width: 170px;
+		margin: 0 auto;
+	}
+}
+
+@media (max-width: 768px){
+	.hour{
+		width: 47%;
+	}
+	
+	.day{
+		width: 47%;
+	}
+	
+	.hour p.item:first-child {
+		border-top: 1px dotted grey;
+		width: 170px;
+		margin: 0 auto;
+	}
+}

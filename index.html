@@ -1,0 +1,49 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Current Weather</title>
+		<link href="js/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="js/lib/font-awesome/css/font-awesome.min.css">
+		<link href="css/style.css" rel="stylesheet">
+		
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/lib/skycons/skycons.js"></script>
+		<script src="js/app.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h3 style="border:none;">Weather for <span id="curtime"></span></h3>
+			</div>
+			<div class="col-md-12 location_container">
+				<div class="location">
+					<h3>Current Location</h3>
+					<div id="location">
+						<img src="img/6.gif"/>
+					</div>
+				</div>
+				<i class="fa fa-2x fa-refresh" onclick="setLocation()" aria-hidden="true"></i>
+			</div>
+			<div class="col-md-3 currently">
+				<h3>Currently</h3>
+				<div id="currently">
+					<img src="img/6.gif"/>
+				</div>
+			</div>
+			<div class="col-md-9 hourly">
+				<h3>Hourly</h3>
+				<div id="hourly">
+					<img src="img/6.gif"/>
+				</div>
+			</div>
+			<div class="col-md-12 daily">
+				<h3>Daily</h3>
+				<div id="daily">
+					<img src="img/6.gif"/>
+				</div>
+			</div>
+		</div>
+	</body>
+</html> 
