@@ -15,11 +15,13 @@ var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
 
 $(document).ready(function()
 {
+	//start the skycons library and auto run the weather app.
 	skycons = new Skycons({"color": "black"});
 	skycons.play();
 	setLocation();
 });
 
+//Main entrance of program and gets the location of the browser or uses default location
 function setLocation()
 {
 	if(navigator.geolocation)
@@ -33,6 +35,7 @@ function setLocation()
 	}
 }
 
+//displays Location and sets Location variable.
 function showPosition(position)
 {
 	var tempDate = new Date();
@@ -42,6 +45,7 @@ function showPosition(position)
 	getWeather();
 }
 
+//Ajax function to get the weather data from php script.
 function getWeather()
 {
 	$.ajax({
@@ -58,6 +62,7 @@ function getWeather()
 	});
 }
 
+//Creates the Html structure to display all the data required for the weather application.
 function displayData()
 {
 	if(WeatherData.currently)
@@ -102,6 +107,8 @@ function displayData()
 	}
 }
 
+//display the weather for the weather for whatever data is being shown.
+//as only day uses a different system. 
 function getData(data, icon, day)
 {
 	if(!day)
@@ -110,19 +117,21 @@ function getData(data, icon, day)
 				"<span class=\"temp\"><canvas class=\"icon\" id=\"" + icon + "\" width=\"64\" height=\"64\"></canvas>" +
 					"<p class=\"temp item\">" + data.temperature.toFixed(0) + "&deg;C</p></span>" +									
 					"<p class=\"italic item\">Feels Like:" + data.apparentTemperature.toFixed(0) + "&degC</p>" +					
-					( data.precipAccumulation ? "<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
+					( "precipAccumulation" in data ? "<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
 					"<p class=\"item\">POP:" + (data.precipProbability * 100).toFixed(0) + "%</p>" +
 					"<p class=\"item\">Humidity:" + (data.humidity * 100).toFixed(0) + "%</p>";
+					
 	return "<p class=\"item\">" + timeHour(data.time, day) + "</p>" +
 			"<p class=\"item\">" + data.summary + "</p>" +
 			"<span class=\"temp\"><canvas class=\"icon\" id=\"" + icon + "\" width=\"64\" height=\"64\"></canvas>" +
 			"<p class=\"temp item\">H:" + data.temperatureHigh.toFixed(0) + "&deg;C<br>L:" + data.temperatureLow.toFixed(0) + "&degC</p></span>" +				
 				"<p class=\"italic item\">Feels Like- H:" + data.apparentTemperatureHigh.toFixed(0) + "&deg;C, L:" + data.apparentTemperatureLow.toFixed(0) + "&degC</p>" +
-				"<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" +
+				"<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" +
 				"<p class=\"item\">POP:" + (data.precipProbability * 100).toFixed(0) + "%</p>" +
 				"<p class=\"item\">Humidity:" + (data.humidity * 100).toFixed(0) + "%</p>";
 }
 
+//shows display time in a user ready input.
 function timeHour(unixTime, dayTime)
 {
 	var dataTime = new Date(unixTime * 1000);	
