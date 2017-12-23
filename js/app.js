@@ -108,7 +108,7 @@ function displayData()
 }
 
 //display the weather for the weather for whatever data is being shown.
-//as only day uses a different system. 
+//as only day uses a different system.  
 function getData(data, icon, day)
 {
 	if(!day)
@@ -117,7 +117,7 @@ function getData(data, icon, day)
 				"<span class=\"temp\"><canvas class=\"icon\" id=\"" + icon + "\" width=\"64\" height=\"64\"></canvas>" +
 					"<p class=\"temp item\">" + data.temperature.toFixed(0) + "&deg;C</p></span>" +									
 					"<p class=\"italic item\">Feels Like:" + data.apparentTemperature.toFixed(0) + "&degC</p>" +					
-					( "precipAccumulation" in data ? "<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
+					( "precipAccumulation" in data ? "<p class=\"item\">" + precipName(data.temperature, '-') + ":" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
 					"<p class=\"item\">POP:" + (data.precipProbability * 100).toFixed(0) + "%</p>" +
 					"<p class=\"item\">Humidity:" + (data.humidity * 100).toFixed(0) + "%</p>";
 					
@@ -126,7 +126,7 @@ function getData(data, icon, day)
 			"<span class=\"temp\"><canvas class=\"icon\" id=\"" + icon + "\" width=\"64\" height=\"64\"></canvas>" +
 			"<p class=\"temp item\">H:" + data.temperatureHigh.toFixed(0) + "&deg;C<br>L:" + data.temperatureLow.toFixed(0) + "&degC</p></span>" +				
 				"<p class=\"italic item\">Feels Like- H:" + data.apparentTemperatureHigh.toFixed(0) + "&deg;C, L:" + data.apparentTemperatureLow.toFixed(0) + "&degC</p>" +
-				( "precipAccumulation" in data ? "<p class=\"item\">Precip:" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
+				( "precipAccumulation" in data ? "<p class=\"item\">" + precipName(data.temperatureHigh, data.temperatureLow) + ":" + (data.precipAccumulation.toFixed(0) !== "0" ? data.precipAccumulation.toFixed(0) : "<1")  + "cm</p>" : "") +
 				"<p class=\"item\">POP:" + (data.precipProbability * 100).toFixed(0) + "%</p>" +
 				"<p class=\"item\">Humidity:" + (data.humidity * 100).toFixed(0) + "%</p>";
 }
@@ -144,3 +144,15 @@ function timeHour(unixTime, dayTime)
 	return retTime;
 }
 
+//returns the best guess as to what the precipitation type is.
+//I am not happy with the naming here, but it can rain when it is below 0, and snow above 0
+//And name matching in the summary is not perfect. So in this case if it gets within 2 degrees of 0 it says Mixed.
+function precipName(temperature1, temperature2)
+{
+	if((temperature1 > -2 && temperature1 < 2) || (temperature2 != '-' && temperature2 > -2 && temperature2 < 2))
+		return "Mixed";
+	if(temperature1 < -2 || (temperature2 != "-" && temperature2 < -2))
+		return "Snow";
+	if(temperature1 > 2 || (temperature2 != "-" && temperature2 > 2))
+		return "Rain";
+}
